@@ -1,0 +1,802 @@
+<!-- Barra Superior de Anuncio Botánico -->
+<div class="announcement-bar">
+  <div class="container announcement-inner">
+    <span>🌿 Colección de Otoño disponible · Tallos cortados en finca menos de 24 h antes de tu entrega</span>
+    <span class="announcement-pill">Suscriptores semanales reciben un jarrón de cerámica artesanal de regalo</span>
+  </div>
+</div>
+
+<!-- Encabezado de Navegación Fijo -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#" class="brand-logo">
+      <span class="brand-mark">✿</span>
+      <div class="brand-text">
+        <span class="brand-name">FlorApp</span>
+        <span class="brand-sub">Atelier Botánico</span>
+      </div>
+    </a>
+
+    <nav class="main-nav">
+      <button type="button" class="nav-link" (click)="scrollToSection(seasonalSection)">Ediciones de Temporada</button>
+      <button type="button" class="nav-link" (click)="scrollToSection(configuratorSection)">Configurador de Ramos</button>
+      <button type="button" class="nav-link" (click)="scrollToSection(ritualSection)">Cómo Funciona</button>
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" class="btn btn-outline btn-sm" (click)="showSubscriptionsDrawer.set(true)">
+        <span>Mis Suscripciones</span>
+        <span class="sub-counter">{{ catalog.clientSubscriptions().length }}</span>
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" (click)="scrollToSection(configuratorSection)">
+        Configurar Ramo
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Notificación Flotante (Toast) -->
+@if (toastMessage(); as msg) {
+  <div class="toast-banner">
+    <span class="toast-dot"></span>
+    <span>{{ msg }}</span>
+  </div>
+}
+
+<main>
+  <!-- SECCIÓN HERO / DESCUBRIMIENTO -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="badge badge-sage">Suscripciones Florales a Medida</div>
+        <h1 class="hero-title">
+          Poesía botánica viva, entregada de forma <em>semanal</em> o <em>mensual</em>.
+        </h1>
+        <p class="hero-lead">
+          Diseña tu arreglo de autor tallo por tallo, o comienza con una colección de temporada.
+          Cosechadas de manera sostenible en microfincas de altura y adaptadas al ritmo de tu hogar.
+        </p>
+
+        <!-- Selector Rápido de Frecuencia en el Hero -->
+        <div class="hero-cadence-switcher">
+          <button
+            type="button"
+            class="cadence-pill"
+            [class.active]="catalog.selectedFrequency() === 'WEEKLY'"
+            (click)="selectFrequency('WEEKLY'); scrollToSection(configuratorSection)">
+            <span class="cadence-title">Ritual Semanal</span>
+            <span class="cadence-meta">Ahorra 15% + Jarrón de Cerámica Gratis</span>
+          </button>
+          <button
+            type="button"
+            class="cadence-pill"
+            [class.active]="catalog.selectedFrequency() === 'MONTHLY'"
+            (click)="selectFrequency('MONTHLY'); scrollToSection(configuratorSection)">
+            <span class="cadence-title">Edición Mensual</span>
+            <span class="cadence-meta">1 Caja Botánica / Mes</span>
+          </button>
+        </div>
+
+        <div class="hero-cta-row">
+          <button type="button" class="btn btn-terracotta btn-lg" (click)="scrollToSection(configuratorSection)">
+            Crear Tu Ramo Personalizado →
+          </button>
+          <button type="button" class="btn btn-ghost" (click)="scrollToSection(seasonalSection)">
+            Explorar Ediciones de Temporada
+          </button>
+        </div>
+
+        <div class="hero-trust-metrics">
+          <div class="metric-item">
+            <strong>12–14 Días</strong>
+            <span>Frescura garantizada en jarrón</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <strong>100% Flexible</strong>
+            <span>Salta entregas, cambia tallos o pausa cuando quieras</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <strong>Cero Plástico</strong>
+            <span>Envoltura hidratante en lino y papel kraft francés</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-arch-frame">
+          <img
+            src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1000&q=85"
+            alt="Arreglo floral botánico en jarrón de cerámica artesanal"
+            class="hero-img" />
+          <div class="floating-botanical-card">
+            <span class="floating-tag">Flor Destacada de la Semana</span>
+            <h4>Ranúnculo Mariposa y Olivo</h4>
+            <p>Cultivados en invernaderos de valle costero · En plena floración</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE EDICIONES DE TEMPORADA / DISEÑOS PREDEFINIDOS -->
+  <section #seasonalSection class="seasonal-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="badge badge-terracotta">Puntos de Partida Curados</span>
+          <h2 class="section-title">Ediciones de Temporada del Atelier</h2>
+        </div>
+        <p class="section-subtitle">
+          Elige una receta de nuestros maestros floristas para cargar sus proporciones exactas de tallos en el configurador interactivo y personaliza cada detalle.
+        </p>
+      </div>
+
+      <div class="presets-grid">
+        @for (preset of catalog.curatedPresets; track preset.id) {
+          <article class="preset-card">
+            <div class="preset-img-wrap">
+              <img [src]="preset.imageUrl" [alt]="preset.name" class="preset-img" loading="lazy" />
+              <span class="preset-season-chip">{{ preset.seasonTag }}</span>
+              <span class="preset-cadence-chip">
+                {{ preset.frequency === 'WEEKLY' ? 'Semanal · 15% Dto.' : 'Ritual Mensual' }}
+              </span>
+            </div>
+            <div class="preset-body">
+              <div class="preset-top">
+                <h3>{{ preset.name }}</h3>
+                <span class="preset-price">desde ${{ preset.startingPrice }}<small>/entrega</small></span>
+              </div>
+              <p class="preset-desc">{{ preset.description }}</p>
+
+              <div class="preset-stem-pills">
+                @for (stem of preset.stems; track stem.flowerId) {
+                  <span class="stem-mini-tag">
+                    {{ stem.count }}× {{ getFlowerName(stem.flowerId) }}
+                  </span>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-outline preset-btn"
+                (click)="applyPresetAndScroll(preset, configuratorSection)">
+                Personalizar Este Arreglo →
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIGURADOR INTERACTIVO DE RAMO Y SUSCRIPCIÓN -->
+  <section #configuratorSection class="configurator-section">
+    <div class="container">
+      <div class="configurator-header">
+        <span class="badge badge-sage">Estudio Interactivo de Ramos</span>
+        <h2 class="section-title">Configura Tu Suscripción Floral</h2>
+        <p class="section-subtitle">
+          Elige tu frecuencia, tamaño del ramo, armonía de color y variedades exactas de flores. Tus selecciones actualizan en tiempo real la vista previa de tu ramo y el precio de tu suscripción.
+        </p>
+      </div>
+
+      <div class="configurator-layout">
+        <!-- COLUMNA IZQUIERDA: CONTROLES INTERACTIVOS EN 5 PASOS -->
+        <div class="configurator-steps">
+
+          <!-- PASO 1: FRECUENCIA (SEMANAL / QUINCENAL / MENSUAL) -->
+          <div class="config-card">
+            <div class="step-label-row">
+              <span class="step-number">01</span>
+              <div>
+                <h3 class="step-title">Selecciona la Frecuencia de Suscripción</h3>
+                <p class="step-hint">Cambia entre entregas semanales, quincenales o mensuales en cualquier momento.</p>
+              </div>
+            </div>
+
+            <div class="frequency-grid">
+              @for (freq of catalog.frequencies; track freq.id) {
+                <button
+                  type="button"
+                  class="freq-option-card"
+                  [class.selected]="catalog.selectedFrequency() === freq.id"
+                  (click)="selectFrequency(freq.id)">
+                  @if (freq.badge) {
+                    <span class="freq-badge">{{ freq.badge }}</span>
+                  }
+                  <div class="freq-header">
+                    <span class="freq-name">{{ freq.label }}</span>
+                    <span class="freq-radio"></span>
+                  </div>
+                  <p class="freq-cadence">{{ freq.cadenceText }}</p>
+                  <ul class="freq-perks">
+                    @for (perk of freq.perks; track perk) {
+                      <li>✓ {{ perk }}</li>
+                    }
+                  </ul>
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- PASO 2: TAMAÑO DEL RAMO Y CUOTA DE TALLOS -->
+          <div class="config-card">
+            <div class="step-label-row">
+              <span class="step-number">02</span>
+              <div>
+                <h3 class="step-title">Elige la Proporción del Ramo</h3>
+                <p class="step-hint">Define tu cuota de tallos y la abundancia del arreglo.</p>
+              </div>
+            </div>
+
+            <div class="size-grid">
+              @for (size of catalog.sizes; track size.id) {
+                <button
+                  type="button"
+                  class="size-option-card"
+                  [class.selected]="catalog.selectedSizeId() === size.id"
+                  (click)="selectSize(size.id)">
+                  <div class="size-top">
+                    <div>
+                      <span class="size-name">{{ size.name }}</span>
+                      <span class="size-stems-pill">{{ size.stemQuota }} Tallos</span>
+                    </div>
+                    <span class="size-price">${{ size.basePrice }}</span>
+                  </div>
+                  <p class="size-tagline">{{ size.tagline }}</p>
+                  <span class="size-room">Ideal para: {{ size.recommendedFor }}</span>
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- PASO 3: PALETA DE COLORES BOTÁNICOS -->
+          <div class="config-card">
+            <div class="step-label-row">
+              <span class="step-number">03</span>
+              <div>
+                <h3 class="step-title">Paleta de Color Botánica</h3>
+                <p class="step-hint">Al elegir una paleta se sugiere una combinación equilibrada de tallos que puedes ajustar en el Paso 04.</p>
+              </div>
+            </div>
+
+            <div class="palette-grid">
+              @for (palette of catalog.palettes; track palette.id) {
+                <button
+                  type="button"
+                  class="palette-card"
+                  [class.selected]="catalog.selectedPaletteId() === palette.id"
+                  (click)="selectPalette(palette.id)">
+                  <div class="swatch-row">
+                    @for (hex of palette.swatches; track hex) {
+                      <span class="color-swatch" [style.background-color]="hex"></span>
+                    }
+                  </div>
+                  <div class="palette-info">
+                    <strong>{{ palette.name }}</strong>
+                    <p>{{ palette.description }}</p>
+                  </div>
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- PASO 4: PERSONALIZACIÓN DE VARIEDADES DE FLORES Y TALLOS -->
+          <div class="config-card">
+            <div class="step-label-row step-header-with-meter">
+              <div class="step-label-left">
+                <span class="step-number">04</span>
+                <div>
+                  <h3 class="step-title">Elige Tus Tallos y Variedades</h3>
+                  <p class="step-hint">Combina flores focales, acentos secundarios y follaje aromático hasta completar la cuota de tu ramo.</p>
+                </div>
+              </div>
+
+              <div class="stem-quota-box" [class.complete]="isQuotaComplete()">
+                <div class="quota-numbers">
+                  <strong>{{ catalog.totalSelectedStems() }} / {{ catalog.currentSize().stemQuota }}</strong>
+                  <span>tallos elegidos</span>
+                </div>
+                <div class="quota-bar-track">
+                  <div class="quota-bar-fill" [style.width.%]="quotaProgressPercent()"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pestañas de Filtro por Rol -->
+            <div class="role-filter-tabs">
+              <button
+                type="button"
+                class="role-tab"
+                [class.active]="activeRoleFilter() === 'ALL'"
+                (click)="activeRoleFilter.set('ALL')">
+                Todas las Variedades ({{ catalog.flowers.length }})
+              </button>
+              <button
+                type="button"
+                class="role-tab"
+                [class.active]="activeRoleFilter() === 'FOCAL'"
+                (click)="activeRoleFilter.set('FOCAL')">
+                Flores Focales
+              </button>
+              <button
+                type="button"
+                class="role-tab"
+                [class.active]="activeRoleFilter() === 'SECONDARY'"
+                (click)="activeRoleFilter.set('SECONDARY')">
+                Acentos Secundarios
+              </button>
+              <button
+                type="button"
+                class="role-tab"
+                [class.active]="activeRoleFilter() === 'FOLIAGE'"
+                (click)="activeRoleFilter.set('FOLIAGE')">
+                Follaje Botánico
+              </button>
+            </div>
+
+            <!-- Cuadrícula de Tarjetas de Flores -->
+            <div class="flowers-grid">
+              @for (flower of filteredFlowers(); track flower.id) {
+                <div class="flower-card" [class.has-count]="catalog.getFlowerCount(flower.id) > 0">
+                  <div class="flower-img-container">
+                    <img [src]="flower.imageUrl" [alt]="flower.name" class="flower-img" loading="lazy" />
+                    <span class="flower-role-tag" [attr.data-role]="flower.role">{{ getRoleLabel(flower.role) }}</span>
+                    @if (flower.priceSupplementPerStem > 0) {
+                      <span class="flower-supplement-tag">+${{ flower.priceSupplementPerStem.toFixed(2) }}/tallo</span>
+                    } @else {
+                      <span class="flower-supplement-tag included">Incluido</span>
+                    }
+                  </div>
+
+                  <div class="flower-card-body">
+                    <div class="flower-title-row">
+                      <div>
+                        <h4>{{ flower.name }}</h4>
+                        <span class="botanical-latin">{{ flower.botanicalName }}</span>
+                      </div>
+                      <span class="flower-color-dot" [style.background-color]="flower.colorHex"></span>
+                    </div>
+
+                    <p class="flower-desc">{{ flower.description }}</p>
+
+                    <div class="flower-meta-footer">
+                      <span class="scent-tag">✦ Aroma {{ flower.scentLevel | lowercase }}</span>
+
+                      <div class="stem-stepper">
+                        <button
+                          type="button"
+                          class="stepper-btn"
+                          [disabled]="catalog.getFlowerCount(flower.id) === 0"
+                          (click)="catalog.adjustStemCount(flower.id, -1)"
+                          aria-label="Quitar tallo">
+                          −
+                        </button>
+                        <span class="stepper-value">{{ catalog.getFlowerCount(flower.id) }}</span>
+                        <button
+                          type="button"
+                          class="stepper-btn"
+                          [disabled]="catalog.totalSelectedStems() >= catalog.currentSize().stemQuota"
+                          (click)="catalog.adjustStemCount(flower.id, 1)"
+                          aria-label="Agregar tallo">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- PASO 5: PRESENTACIÓN / JARRÓN Y PROGRAMACIÓN DE ENTREGA -->
+          <div class="config-card">
+            <div class="step-label-row">
+              <span class="step-number">05</span>
+              <div>
+                <h3 class="step-title">Presentación y Primera Entrega</h3>
+                <p class="step-hint">Elige tu envoltura o jarrón artesanal y tu día preferido de llegada semanal o mensual.</p>
+              </div>
+            </div>
+
+            <div class="wrapping-list">
+              @for (wrap of catalog.wrappings; track wrap.id) {
+                <button
+                  type="button"
+                  class="wrap-option-row"
+                  [class.selected]="catalog.selectedWrappingId() === wrap.id"
+                  (click)="selectWrapping(wrap.id)">
+                  <div class="wrap-main">
+                    <div class="wrap-title-line">
+                      <strong>{{ wrap.name }}</strong>
+                      @if (wrap.badge) {
+                        <span class="wrap-badge">{{ wrap.badge }}</span>
+                      }
+                    </div>
+                    <p>{{ wrap.description }}</p>
+                  </div>
+                  <div class="wrap-price">
+                    @if (wrap.firstDeliveryFreeOnWeekly && catalog.selectedFrequency() === 'WEEKLY') {
+                      <span class="price-strike">${{ wrap.price }}</span>
+                      <span class="price-free">GRATIS</span>
+                    } @else if (wrap.price === 0) {
+                      <span>Incluido</span>
+                    } @else {
+                      <span>+${{ wrap.price }}</span>
+                    }
+                  </div>
+                </button>
+              }
+            </div>
+
+            <div class="delivery-details-grid">
+              <div class="form-group">
+                <label>Día de Entrega Preferido</label>
+                <div class="day-pills">
+                  @for (day of deliveryDays; track day) {
+                    <button
+                      type="button"
+                      class="day-pill"
+                      [class.active]="catalog.selectedDeliveryDay() === day"
+                      (click)="catalog.selectedDeliveryDay.set(day)">
+                      {{ day }}
+                    </button>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="recipientInput">Nombre Completo de Quien Recibe</label>
+                <input
+                  id="recipientInput"
+                  type="text"
+                  class="botanical-input"
+                  [ngModel]="catalog.recipientName()"
+                  (ngModelChange)="catalog.recipientName.set($event)"
+                  placeholder="ej. Clara Vance" />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="addressInput">Dirección de Entrega</label>
+                <input
+                  id="addressInput"
+                  type="text"
+                  class="botanical-input"
+                  [ngModel]="catalog.deliveryAddress()"
+                  (ngModelChange)="catalog.deliveryAddress.set($event)"
+                  placeholder="Calle, número, departamento o interior" />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="giftNoteInput">Dedicatoria en Tarjeta de Lino de Cortesía</label>
+                <textarea
+                  id="giftNoteInput"
+                  rows="2"
+                  class="botanical-input"
+                  [ngModel]="catalog.giftNote()"
+                  (ngModelChange)="catalog.giftNote.set($event)"
+                  placeholder="Escribe un mensaje especial para tu primera entrega..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: VISUALIZADOR DE RAMO EN VIVO Y RESUMEN -->
+        <aside class="configurator-sidebar">
+          <div class="sticky-preview-card">
+            <div class="preview-header">
+              <div>
+                <span class="preview-eyebrow">Vista Previa del Atelier</span>
+                <h3>{{ catalog.currentSize().name }}</h3>
+              </div>
+              <span class="badge badge-sage">{{ catalog.currentFrequency().label }}</span>
+            </div>
+
+            <!-- Visualizador SVG Interactivo del Ramo Botánico -->
+            <div class="bouquet-canvas-box">
+              <svg viewBox="0 0 280 240" class="bouquet-svg" role="img" aria-label="Vista previa dinámica de la composición del ramo">
+                <defs>
+                  <radialGradient id="auraGrad" cx="50%" cy="45%" r="50%">
+                    <stop offset="0%" stop-color="#F2CC8F" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#FAF7F2" stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+                <!-- Halo suave de fondo -->
+                <circle cx="140" cy="110" r="95" fill="url(#auraGrad)" />
+
+                <!-- Tallos convergiendo hacia el cuello del jarrón -->
+                @for (dot of visualBloomDots(); track $index) {
+                  <line
+                    [attr.x1]="dot.cx"
+                    [attr.y1]="dot.cy"
+                    x2="140"
+                    y2="178"
+                    stroke="#588157"
+                    stroke-width="2"
+                    stroke-opacity="0.45" />
+                }
+
+                <!-- Cabezas Florales Dinámicas -->
+                @for (dot of visualBloomDots(); track $index) {
+                  <g class="bloom-node">
+                    <circle
+                      [attr.cx]="dot.cx"
+                      [attr.cy]="dot.cy"
+                      [attr.r]="dot.r"
+                      [attr.fill]="dot.fill"
+                      stroke="#FFFFFF"
+                      stroke-width="1.5" />
+                    <circle
+                      [attr.cx]="dot.cx"
+                      [attr.cy]="dot.cy"
+                      [attr.r]="dot.r * 0.35"
+                      fill="#283F2C"
+                      fill-opacity="0.22" />
+                  </g>
+                }
+
+                <!-- Representación del Jarrón / Envoltura -->
+                @if (catalog.selectedWrappingId() === 'CERAMIC_VASE') {
+                  <path
+                    d="M112 172 L168 172 L176 226 C176 231 170 234 164 234 L116 234 C110 234 104 231 104 226 Z"
+                    fill="#EAE2D6"
+                    stroke="#C8BFA8"
+                    stroke-width="2" />
+                  <path d="M108 172 L172 172" stroke="#D4A373" stroke-width="3" stroke-linecap="round" />
+                } @else if (catalog.selectedWrappingId() === 'FLUTED_GLASS') {
+                  <path
+                    d="M116 172 L164 172 L170 228 L110 228 Z"
+                    fill="#D4A373"
+                    fill-opacity="0.45"
+                    stroke="#B2593E"
+                    stroke-width="1.5" />
+                } @else {
+                  <polygon
+                    points="100,168 180,168 156,232 124,232"
+                    fill="#E6CCB2"
+                    stroke="#C8A98E"
+                    stroke-width="1.5" />
+                  <rect x="122" y="188" width="36" height="8" rx="4" fill="#C86D51" />
+                }
+              </svg>
+
+              <div class="canvas-caption">
+                <span>Paleta: <strong>{{ catalog.currentPalette().name }}</strong></span>
+                <span>{{ catalog.totalSelectedStems() }} / {{ catalog.currentSize().stemQuota }} tallos</span>
+              </div>
+            </div>
+
+            <!-- Desglose de la Receta de Tallos -->
+            <div class="recipe-breakdown">
+              <div class="recipe-title-row">
+                <span>Tu Receta de Tallos</span>
+                @if (!isQuotaComplete()) {
+                  <span class="quota-warning">
+                    Agrega {{ catalog.currentSize().stemQuota - catalog.totalSelectedStems() }} tallos más
+                  </span>
+                } @else {
+                  <span class="quota-ready">✓ Ramo Completo</span>
+                }
+              </div>
+
+              <ul class="recipe-list">
+                @for (item of catalog.detailedStems(); track item.flowerId) {
+                  <li class="recipe-item">
+                    <div class="recipe-item-left">
+                      <span class="recipe-dot" [style.background-color]="item.flower.colorHex"></span>
+                      <span class="recipe-name">{{ item.count }}× {{ item.flower.name }}</span>
+                    </div>
+                    <div class="recipe-item-right">
+                      @if (item.flower.priceSupplementPerStem > 0) {
+                        <span class="recipe-extra">+${{ (item.count * item.flower.priceSupplementPerStem).toFixed(2) }}</span>
+                      } @else {
+                        <span class="recipe-included">Incl.</span>
+                      }
+                    </div>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <!-- Resumen de Precios -->
+            <div class="pricing-lines">
+              <div class="price-row">
+                <span>Base ({{ catalog.currentSize().name }})</span>
+                <span>${{ catalog.currentSize().basePrice.toFixed(2) }}</span>
+              </div>
+              <div class="price-row">
+                <span>Suplemento de Tallos Especiales</span>
+                <span>+${{ catalog.stemSupplementsTotal().toFixed(2) }}</span>
+              </div>
+              <div class="price-row">
+                <span>{{ catalog.currentWrapping().name }}</span>
+                <span>
+                  @if (catalog.wrappingEffectivePrice() === 0) {
+                    <strong class="free-text">GRATIS</strong>
+                  } @else {
+                    +${{ catalog.wrappingEffectivePrice().toFixed(2) }}
+                  }
+                </span>
+              </div>
+              @if (catalog.discountAmount() > 0) {
+                <div class="price-row discount-row">
+                  <span>Ahorro {{ catalog.currentFrequency().label }} ({{ catalog.currentFrequency().discountPercent }}%)</span>
+                  <span>−${{ catalog.discountAmount().toFixed(2) }}</span>
+                </div>
+              }
+
+              <div class="price-total-row">
+                <div>
+                  <span class="total-label">Total por Entrega</span>
+                  <span class="total-sub">Llega cada {{ catalog.selectedDeliveryDay() }} · Envío Gratis</span>
+                </div>
+                <div class="total-amount-box">
+                  <span class="total-price">${{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
+                  <span class="monthly-est">Est. ${{ catalog.estimatedMonthlyTotal().toFixed(2) }} / mes</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-terracotta btn-block"
+              (click)="confirmSubscription()">
+              Iniciar Suscripción · {{ catalog.currentFrequency().label }}
+            </button>
+
+            <p class="java-api-footnote">
+              ⚡ Listo para API Java Spring Boot (`POST {{ catalog.apiEndpointPreview }}`)
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CÓMO FUNCIONA / EL RITUAL BOTÁNICO -->
+  <section #ritualSection class="ritual-section">
+    <div class="container">
+      <div class="section-header centered">
+        <span class="badge badge-sage">La Promesa FlorApp</span>
+        <h2 class="section-title">Del Bosque de Niebla y el Valle a Tu Mesa</h2>
+      </div>
+
+      <div class="ritual-grid">
+        <div class="ritual-step">
+          <span class="ritual-num">I</span>
+          <h3>Elige Tu Ritmo Semanal o Mensual</h3>
+          <p>
+            Selecciona un ritual semanal de flores frescas con 15% de ahorro y jarrón de cerámica de cortesía, o una caja botánica mensual de autor.
+          </p>
+        </div>
+        <div class="ritual-step">
+          <span class="ritual-num">II</span>
+          <h3>Personaliza Tus Tallos y Paleta</h3>
+          <p>
+            Cambia flores focales individuales como Ranúnculos Mariposa o Rosas de Jardín Juliet hasta 48 horas antes de cada día de cosecha.
+          </p>
+        </div>
+        <div class="ritual-step">
+          <span class="ritual-num">III</span>
+          <h3>Cosechado Bajo Pedido</h3>
+          <p>
+            Nuestros cultivadores cortan tus tallos al amanecer en etapa de botón para que se abran lentamente en tu hogar durante 12 a 14 días.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- PIE DE PÁGINA CON HOJA DE RUTA DE MÓDULOS FUTUROS -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-name">✿ FlorApp</span>
+      <p>Atelier de Suscripción Botánica Moderna · Portal de Clientes (Angular 19)</p>
+    </div>
+    <div class="footer-roadmap">
+      <span class="roadmap-chip active">Portal de Clientes (Activo)</span>
+      <span class="roadmap-chip">Portal de Vendedores (Próximamente)</span>
+      <span class="roadmap-chip">Estudio de Marketing (Próximamente)</span>
+      <span class="roadmap-chip">Admin y API Java (Próximamente)</span>
+    </div>
+  </div>
+</footer>
+
+<!-- PANEL LATERAL: MIS SUSCRIPCIONES (GESTIÓN DEL CLIENTE) -->
+@if (showSubscriptionsDrawer()) {
+  <div class="overlay-backdrop" (click)="showSubscriptionsDrawer.set(false)">
+    <aside class="subscriptions-drawer" (click)="$event.stopPropagation()">
+      <div class="drawer-header">
+        <div>
+          <span class="badge badge-sage">Portal del Cliente</span>
+          <h3>Mis Suscripciones Activas</h3>
+        </div>
+        <button type="button" class="close-btn" (click)="showSubscriptionsDrawer.set(false)">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        @for (sub of catalog.clientSubscriptions(); track sub.id) {
+          <div class="sub-item-card">
+            <div class="sub-item-top">
+              <div>
+                <span class="sub-id">{{ sub.id }}</span>
+                <h4>{{ getFrequencyLabel(sub.frequency) }} · {{ getSizeLabel(sub.sizeId) }}</h4>
+              </div>
+              <span class="status-pill" [attr.data-status]="sub.status">{{ getStatusLabel(sub.status) }}</span>
+            </div>
+
+            <p class="sub-meta">
+              <strong>Próxima Entrega:</strong> {{ sub.nextDeliveryDate }} · <strong>${{ sub.unitPricePerDelivery.toFixed(2) }}</strong>/entrega
+            </p>
+            <p class="sub-meta">
+              <strong>Destinatario:</strong> {{ sub.recipientName }} ({{ sub.deliveryAddress }})
+            </p>
+
+            <div class="sub-stems-summary">
+              @for (s of sub.stems; track s.flowerId) {
+                <span class="stem-mini-tag">{{ s.count }}× {{ getFlowerName(s.flowerId) }}</span>
+              }
+            </div>
+
+            <div class="sub-actions">
+              <button
+                type="button"
+                class="btn btn-outline btn-xs"
+                (click)="catalog.skipNextDelivery(sub.id)">
+                Saltar Próxima Entrega
+              </button>
+              <button
+                type="button"
+                class="btn btn-ghost btn-xs"
+                (click)="catalog.toggleSubscriptionStatus(sub.id)">
+                {{ sub.status === 'ACTIVE' ? 'Pausar Suscripción' : 'Reanudar Suscripción' }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </aside>
+  </div>
+}
+
+<!-- MODAL: SUSCRIPCIÓN CONFIRMADA Y VISTA PREVIA DEL DTO PARA EL BACKEND JAVA -->
+@if (showPayloadModal() && latestCreatedOrder(); as order) {
+  <div class="overlay-backdrop" (click)="showPayloadModal.set(false)">
+    <div class="confirmation-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <span class="badge badge-sage">Suscripción Activada</span>
+        <h3>¡Gracias, {{ order.recipientName }}!</h3>
+        <p>
+          Tu suscripción botánica <strong>{{ getFrequencyLabel(order.frequency) | lowercase }}</strong> (<strong>{{ order.id }}</strong>) ha sido programada para los días <strong>{{ order.deliveryDay }}</strong>.
+        </p>
+      </div>
+
+      <div class="modal-dto-box">
+        <div class="dto-bar">
+          <span>POST {{ catalog.apiEndpointPreview }} (Payload REST para Java)</span>
+          <span>HTTP 201 Created (Simulado)</span>
+        </div>
+        <pre class="dto-json">{{ order | json }}</pre>
+      </div>
+
+      <div class="modal-actions">
+        <button
+          type="button"
+          class="btn btn-outline"
+          (click)="showPayloadModal.set(false); showSubscriptionsDrawer.set(true)">
+          Ver en Mis Suscripciones
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="showPayloadModal.set(false)">
+          Seguir Explorando
+        </button>
+      </div>
+    </div>
+  </div>
+}
