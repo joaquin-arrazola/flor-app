@@ -24,10 +24,12 @@
     </nav>
 
     <div class="header-actions">
-      <button type="button" class="btn btn-outline btn-sm sub-btn" (click)="showSubscriptionsDrawer.set(true)">
-        <span class="sub-btn-label">Mis Suscripciones</span>
-        <span class="sub-counter">{{ catalog.clientSubscriptions().length }}</span>
-      </button>
+      @if (showSubscriptionsButton()) {
+        <button type="button" class="btn btn-outline btn-sm sub-btn" (click)="showSubscriptionsDrawer.set(true)">
+          <span class="sub-btn-label">Mis Suscripciones</span>
+          <span class="sub-counter">{{ catalog.clientSubscriptions().length }}</span>
+        </button>
+      }
       <button type="button" class="btn btn-primary btn-sm desktop-cta" (click)="scrollToSection(configuratorSection)">
         Configurar Ramo
       </button>
@@ -61,13 +63,15 @@
         <span>🌿 Cómo Funciona</span>
         <span>→</span>
       </button>
-      <button
-        type="button"
-        class="mobile-nav-item highlight"
-        (click)="showMobileMenu.set(false); showSubscriptionsDrawer.set(true)">
-        <span>📦 Mis Suscripciones Activas</span>
-        <span class="sub-counter">{{ catalog.clientSubscriptions().length }}</span>
-      </button>
+      @if (showSubscriptionsButton()) {
+        <button
+          type="button"
+          class="mobile-nav-item highlight"
+          (click)="showMobileMenu.set(false); showSubscriptionsDrawer.set(true)">
+          <span>📦 Mis Suscripciones Activas</span>
+          <span class="sub-counter">{{ catalog.clientSubscriptions().length }}</span>
+        </button>
+      }
     </div>
   }
 </header>
@@ -183,7 +187,7 @@
             <div class="preset-body">
               <div class="preset-top">
                 <h3>{{ preset.name }}</h3>
-                <span class="preset-price">desde ${{ preset.startingPrice }}<small>/entrega</small></span>
+                <span class="preset-price">desde Bs {{ preset.startingPrice }}<small>/entrega</small></span>
               </div>
               <p class="preset-desc">{{ preset.description }}</p>
 
@@ -280,7 +284,7 @@
                       <span class="size-name">{{ size.name }}</span>
                       <span class="size-stems-pill">{{ size.stemQuota }} Tallos</span>
                     </div>
-                    <span class="size-price">${{ size.basePrice }}</span>
+                    <span class="size-price">Bs {{ size.basePrice }}</span>
                   </div>
                   <p class="size-tagline">{{ size.tagline }}</p>
                   <span class="size-room">Ideal para: {{ size.recommendedFor }}</span>
@@ -382,7 +386,7 @@
                     <img [src]="flower.imageUrl" [alt]="flower.name" class="flower-img" loading="lazy" />
                     <span class="flower-role-tag" [attr.data-role]="flower.role">{{ getRoleLabel(flower.role) }}</span>
                     @if (flower.priceSupplementPerStem > 0) {
-                      <span class="flower-supplement-tag">+${{ flower.priceSupplementPerStem.toFixed(2) }}/tallo</span>
+                      <span class="flower-supplement-tag">+Bs {{ flower.priceSupplementPerStem.toFixed(2) }}/tallo</span>
                     } @else {
                       <span class="flower-supplement-tag included">Incluido</span>
                     }
@@ -456,12 +460,12 @@
                   </div>
                   <div class="wrap-price">
                     @if (wrap.firstDeliveryFreeOnWeekly && catalog.selectedFrequency() === 'WEEKLY') {
-                      <span class="price-strike">${{ wrap.price }}</span>
+                      <span class="price-strike">Bs {{ wrap.price }}</span>
                       <span class="price-free">GRATIS</span>
                     } @else if (wrap.price === 0) {
                       <span>Incluido</span>
                     } @else {
-                      <span>+${{ wrap.price }}</span>
+                      <span>+Bs {{ wrap.price }}</span>
                     }
                   </div>
                 </button>
@@ -627,7 +631,7 @@
                     </div>
                     <div class="recipe-item-right">
                       @if (item.flower.priceSupplementPerStem > 0) {
-                        <span class="recipe-extra">+${{ (item.count * item.flower.priceSupplementPerStem).toFixed(2) }}</span>
+                        <span class="recipe-extra">+Bs {{ (item.count * item.flower.priceSupplementPerStem).toFixed(2) }}</span>
                       } @else {
                         <span class="recipe-included">Incl.</span>
                       }
@@ -641,11 +645,11 @@
             <div class="pricing-lines">
               <div class="price-row">
                 <span>Base ({{ catalog.currentSize().name }})</span>
-                <span>${{ catalog.currentSize().basePrice.toFixed(2) }}</span>
+                <span>Bs {{ catalog.currentSize().basePrice.toFixed(2) }}</span>
               </div>
               <div class="price-row">
                 <span>Suplemento de Tallos Especiales</span>
-                <span>+${{ catalog.stemSupplementsTotal().toFixed(2) }}</span>
+                <span>+Bs {{ catalog.stemSupplementsTotal().toFixed(2) }}</span>
               </div>
               <div class="price-row">
                 <span>{{ catalog.currentWrapping().name }}</span>
@@ -653,14 +657,14 @@
                   @if (catalog.wrappingEffectivePrice() === 0) {
                     <strong class="free-text">GRATIS</strong>
                   } @else {
-                    +${{ catalog.wrappingEffectivePrice().toFixed(2) }}
+                    +Bs {{ catalog.wrappingEffectivePrice().toFixed(2) }}
                   }
                 </span>
               </div>
               @if (catalog.discountAmount() > 0) {
                 <div class="price-row discount-row">
                   <span>Ahorro {{ catalog.currentFrequency().label }} ({{ catalog.currentFrequency().discountPercent }}%)</span>
-                  <span>−${{ catalog.discountAmount().toFixed(2) }}</span>
+                  <span>−Bs {{ catalog.discountAmount().toFixed(2) }}</span>
                 </div>
               }
 
@@ -670,8 +674,8 @@
                   <span class="total-sub">Llega cada {{ catalog.selectedDeliveryDay() }} · Envío Gratis</span>
                 </div>
                 <div class="total-amount-box">
-                  <span class="total-price">${{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
-                  <span class="monthly-est">Est. ${{ catalog.estimatedMonthlyTotal().toFixed(2) }} / mes</span>
+                  <span class="total-price">Bs {{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
+                  <span class="monthly-est">Est. Bs {{ catalog.estimatedMonthlyTotal().toFixed(2) }} / mes</span>
                 </div>
               </div>
             </div>
@@ -747,7 +751,7 @@
 <div class="mobile-bottom-bar">
   <div class="mobile-bar-summary" (click)="showMobileBouquetSheet.set(true)">
     <div class="mobile-bar-top">
-      <span class="mobile-bar-price">${{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
+      <span class="mobile-bar-price">Bs {{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
       <span class="mobile-bar-freq">/ {{ getFrequencyLabel(catalog.selectedFrequency()) | lowercase }}</span>
     </div>
     <div class="mobile-bar-stems">
@@ -851,7 +855,7 @@
             </div>
             <div class="recipe-item-right">
               @if (item.flower.priceSupplementPerStem > 0) {
-                <span class="recipe-extra">+${{ (item.count * item.flower.priceSupplementPerStem).toFixed(2) }}</span>
+                <span class="recipe-extra">+Bs {{ (item.count * item.flower.priceSupplementPerStem).toFixed(2) }}</span>
               } @else {
                 <span class="recipe-included">Incl.</span>
               }
@@ -866,7 +870,7 @@
           <span class="total-sub">Cada {{ catalog.selectedDeliveryDay() }} · Envío Gratis</span>
         </div>
         <div class="total-amount-box">
-          <span class="total-price">${{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
+          <span class="total-price">Bs {{ catalog.finalPricePerDelivery().toFixed(2) }}</span>
         </div>
       </div>
 
@@ -874,7 +878,7 @@
         type="button"
         class="btn btn-terracotta btn-block"
         (click)="confirmSubscription()">
-        Confirmar Suscripción · ${{ catalog.finalPricePerDelivery().toFixed(2) }}
+        Confirmar Suscripción · Bs {{ catalog.finalPricePerDelivery().toFixed(2) }}
       </button>
     </div>
   </div>
@@ -904,7 +908,7 @@
             </div>
 
             <p class="sub-meta">
-              <strong>Próxima Entrega:</strong> {{ sub.nextDeliveryDate }} · <strong>${{ sub.unitPricePerDelivery.toFixed(2) }}</strong>/entrega
+              <strong>Próxima Entrega:</strong> {{ sub.nextDeliveryDate }} · <strong>Bs {{ sub.unitPricePerDelivery.toFixed(2) }}</strong>/entrega
             </p>
             <p class="sub-meta">
               <strong>Destinatario:</strong> {{ sub.recipientName }} ({{ sub.deliveryAddress }})

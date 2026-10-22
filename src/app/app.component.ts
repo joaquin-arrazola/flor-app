@@ -25,6 +25,7 @@ export class AppComponent {
 
   readonly activeRoleFilter = signal<'ALL' | StemRole>('ALL');
   readonly showSubscriptionsDrawer = signal<boolean>(false);
+  readonly showSubscriptionsButton = signal<boolean>(false);
   readonly showPayloadModal = signal<boolean>(false);
   readonly showMobileMenu = signal<boolean>(false);
   readonly showMobileBouquetSheet = signal<boolean>(false);
