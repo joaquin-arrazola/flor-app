@@ -26,6 +26,8 @@ export class AppComponent {
   readonly activeRoleFilter = signal<'ALL' | StemRole>('ALL');
   readonly showSubscriptionsDrawer = signal<boolean>(false);
   readonly showPayloadModal = signal<boolean>(false);
+  readonly showMobileMenu = signal<boolean>(false);
+  readonly showMobileBouquetSheet = signal<boolean>(false);
   readonly latestCreatedOrder = signal<SubscriptionOrderPayload | null>(null);
   readonly toastMessage = signal<string | null>(null);
 
@@ -116,15 +118,18 @@ export class AppComponent {
 
   applyPresetAndScroll(preset: CuratedPreset, targetEl: HTMLElement): void {
     this.catalog.loadPresetIntoConfigurator(preset);
+    this.showMobileMenu.set(false);
     targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     this.showToast(`Diseño "${preset.name}" cargado en el Configurador Atelier`);
   }
 
   scrollToSection(targetEl: HTMLElement): void {
+    this.showMobileMenu.set(false);
     targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   confirmSubscription(): void {
+    this.showMobileBouquetSheet.set(false);
     const order = this.catalog.createSubscriptionFromCurrentConfig();
     this.latestCreatedOrder.set(order);
     this.showPayloadModal.set(true);
