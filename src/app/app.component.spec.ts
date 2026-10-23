@@ -8,7 +8,7 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the FlorApp client portal', () => {
+  it('should create the Club de las Flores client portal', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
@@ -25,7 +25,7 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
 
     app.selectFrequency('WEEKLY');
-    expect(app.catalog.currentFrequency().discountPercent).toBe(15);
+    expect(app.catalog.currentFrequency().discountPercent).toBe(12.5);
 
     app.selectFrequency('MONTHLY');
     expect(app.catalog.currentFrequency().discountPercent).toBe(0);

@@ -1,8 +1,8 @@
 <!-- Barra Superior de Anuncio Botánico -->
 <div class="announcement-bar">
   <div class="container announcement-inner">
-    <span class="announcement-main">🌿 Colección de Otoño · Tallos cortados menos de 24 h antes de tu entrega</span>
-    <span class="announcement-pill">Jarrón de cerámica gratis en plan semanal</span>
+    <span class="announcement-main">🌿 El Club de las Flores · Flores locales de temporada con comercio justo y directo</span>
+    <span class="announcement-pill">Día del Club: entregas semanales y quincenales desde 120 Bs</span>
   </div>
 </div>
 
@@ -12,7 +12,7 @@
     <a href="#" class="brand-logo">
       <span class="brand-mark">✿</span>
       <div class="brand-text">
-        <span class="brand-name">FlorApp</span>
+        <span class="brand-name">Club de las Flores</span>
         <span class="brand-sub">Atelier Botánico</span>
       </div>
     </a>
@@ -89,13 +89,12 @@
   <section class="hero-section">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="badge badge-sage">Suscripciones Florales a Medida</div>
+        <div class="badge badge-sage">✿ Suscripción Floral Sostenible & Comercio Justo</div>
         <h1 class="hero-title">
-          Poesía botánica viva, entregada de forma <em>semanal</em> o <em>mensual</em>.
+          Flores frescas de temporada en tu hogar <em>cada semana</em>.
         </h1>
         <p class="hero-lead">
-          Diseña tu arreglo de autor tallo por tallo, o comienza con una colección de temporada.
-          Cosechadas de manera sostenible en microfincas de altura y adaptadas al ritmo de tu hogar.
+          Llevamos la experiencia de la naturaleza y flores frescas cada semana a tu hogar, construyendo una comunidad consciente que apoya a productores locales con precios justos y empaque 100% ecológico.
         </p>
 
         <!-- Selector Rápido de Frecuencia en el Hero -->
@@ -105,42 +104,42 @@
             class="cadence-pill"
             [class.active]="catalog.selectedFrequency() === 'WEEKLY'"
             (click)="selectFrequency('WEEKLY'); scrollToSection(configuratorSection)">
-            <span class="cadence-title">Ritual Semanal</span>
-            <span class="cadence-meta">Ahorra 15% + Jarrón de Cerámica Gratis</span>
+            <span class="cadence-title">Plan El Club / Esencial</span>
+            <span class="cadence-meta">Semanal · 210 Bs/mes · Día del Club</span>
           </button>
           <button
             type="button"
             class="cadence-pill"
-            [class.active]="catalog.selectedFrequency() === 'MONTHLY'"
-            (click)="selectFrequency('MONTHLY'); scrollToSection(configuratorSection)">
-            <span class="cadence-title">Edición Mensual</span>
-            <span class="cadence-meta">1 Caja Botánica / Mes</span>
+            [class.active]="catalog.selectedFrequency() === 'BIWEEKLY'"
+            (click)="selectFrequency('BIWEEKLY'); scrollToSection(configuratorSection)">
+            <span class="cadence-title">Plan Quincenal Esencial</span>
+            <span class="cadence-meta">Quincenal · 120 Bs/mes · Inicio Floral</span>
           </button>
         </div>
 
         <div class="hero-cta-row">
           <button type="button" class="btn btn-terracotta btn-lg" (click)="scrollToSection(configuratorSection)">
-            Crear Tu Ramo Personalizado →
+            Configurar Tu Suscripción →
           </button>
           <button type="button" class="btn btn-ghost" (click)="scrollToSection(seasonalSection)">
-            Explorar Ediciones de Temporada
+            Ver Planes de Temporada
           </button>
         </div>
 
         <div class="hero-trust-metrics">
           <div class="metric-item">
             <strong>12–14 Días</strong>
-            <span>Frescura garantizada en jarrón</span>
+            <span>Frescura en jarrón garantizada</span>
           </div>
           <div class="metric-divider"></div>
           <div class="metric-item">
-            <strong>100% Flexible</strong>
-            <span>Salta entregas, cambia tallos o pausa cuando quieras</span>
+            <strong>Comercio Justo</strong>
+            <span>Directo de productores locales sin intermediarios</span>
           </div>
           <div class="metric-divider"></div>
           <div class="metric-item">
             <strong>Cero Plástico</strong>
-            <span>Envoltura hidratante en lino y papel kraft francés</span>
+            <span>Empaque 100% ecológico en kraft y yute</span>
           </div>
         </div>
       </div>
@@ -152,9 +151,9 @@
             alt="Arreglo floral botánico en jarrón de cerámica artesanal"
             class="hero-img" />
           <div class="floating-botanical-card">
-            <span class="floating-tag">Flor Destacada de la Semana</span>
-            <h4>Ranúnculo Mariposa y Olivo</h4>
-            <p>Cultivados en invernaderos de valle costero · En plena floración</p>
+            <span class="floating-tag">Unboxing & Trazabilidad Local</span>
+            <h4>Productor: Familia Choque</h4>
+            <p>Microfinca de altura · Tarjeta con su historia y consejos de cuidado en cada entrega</p>
           </div>
         </div>
       </div>
@@ -166,11 +165,11 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <span class="badge badge-terracotta">Puntos de Partida Curados</span>
-          <h2 class="section-title">Ediciones de Temporada del Atelier</h2>
+          <span class="badge badge-terracotta">Planes y Selecciones del Club</span>
+          <h2 class="section-title">Estructura de Planes de Suscripción</h2>
         </div>
         <p class="section-subtitle">
-          Elige una receta de nuestros maestros floristas para cargar sus proporciones exactas de tallos en el configurador interactivo y personaliza cada detalle.
+          Elige entre el Plan Esencial (210 Bs/mes), Plan Dúo (300 Bs/mes) o Plan Quincenal (120 Bs/mes). Cada entrega incluye flores locales frescas de temporada y tarjeta informativa del productor.
         </p>
       </div>
 
@@ -474,7 +473,7 @@
 
             <div class="delivery-details-grid">
               <div class="form-group">
-                <label>Día de Entrega Preferido</label>
+                <label>Día de Entrega (Día del Club)</label>
                 <div class="day-pills">
                   @for (day of deliveryDays; track day) {
                     <button
@@ -511,7 +510,7 @@
               </div>
 
               <div class="form-group full-width">
-                <label for="giftNoteInput">Dedicatoria en Tarjeta de Lino de Cortesía</label>
+                <label for="giftNoteInput">Dedicatoria Personalizada (Incluye Tarjeta con Historia del Productor)</label>
                 <textarea
                   id="giftNoteInput"
                   rows="2"
@@ -696,34 +695,34 @@
     </div>
   </section>
 
-  <!-- SECCIÓN CÓMO FUNCIONA / EL RITUAL BOTÁNICO -->
+  <!-- SECCIÓN CÓMO FUNCIONA / PILARES FUNDAMENTALES DEL NEGOCIO -->
   <section #ritualSection class="ritual-section">
     <div class="container">
       <div class="section-header centered">
-        <span class="badge badge-sage">La Promesa FlorApp</span>
-        <h2 class="section-title">Del Bosque de Niebla y el Valle a Tu Mesa</h2>
+        <span class="badge badge-sage">Propósito y Sostenibilidad</span>
+        <h2 class="section-title">Los Tres Pilares de El Club de las Flores</h2>
       </div>
 
       <div class="ritual-grid">
         <div class="ritual-step">
           <span class="ritual-num">I</span>
-          <h3>Elige Tu Ritmo Semanal o Mensual</h3>
+          <h3>Propuesta de Valor & Suscripción</h3>
           <p>
-            Selecciona un ritual semanal de flores frescas con 15% de ahorro y jarrón de cerámica de cortesía, o una caja botánica mensual de autor.
+            Modelo recurrente que brinda el hábito y bienestar de tener flores de temporada siempre frescas en el hogar. No vendemos solo ramos, ofrecemos conveniencia continua garantizando 12 a 14 días de frescura en jarrón.
           </p>
         </div>
         <div class="ritual-step">
           <span class="ritual-num">II</span>
-          <h3>Personaliza Tus Tallos y Paleta</h3>
+          <h3>Impacto Social & Comercio Justo</h3>
           <p>
-            Cambia flores focales individuales como Ranúnculos Mariposa o Rosas de Jardín Juliet hasta 48 horas antes de cada día de cosecha.
+            Compra directa a agricultores y cooperativas florícolas locales a un precio justo sin intermediarios innecesarios. Cada entrega incluye una tarjeta informativa con la historia del cultivador y la trazabilidad de tus flores.
           </p>
         </div>
         <div class="ritual-step">
           <span class="ritual-num">III</span>
-          <h3>Cosechado Bajo Pedido</h3>
+          <h3>Sostenibilidad & Empaque Ecológico</h3>
           <p>
-            Nuestros cultivadores cortan tus tallos al amanecer en etapa de botón para que se abran lentamente en tu hogar durante 12 a 14 días.
+            Enfoque en especies locales de temporada y cosechas bajo pedido para el Día del Club, reduciendo la huella de carbono. Empaque 100% ecológico y compostable en papel kraft, yute y cordel biodegradable, cero plásticos.
           </p>
         </div>
       </div>
@@ -735,7 +734,7 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <span class="brand-name">✿ FlorApp</span>
+      <span class="brand-name">✿ Club de las Flores</span>
       <p>Atelier de Suscripción Botánica Moderna · Portal de Clientes (Angular 19)</p>
     </div>
     <div class="footer-roadmap">

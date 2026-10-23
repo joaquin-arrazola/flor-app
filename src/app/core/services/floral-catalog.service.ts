@@ -34,36 +34,43 @@ export class FloralCatalogService {
   }[] = [
     {
       id: 'WEEKLY',
-      label: 'Atelier Semanal',
-      cadenceText: '4 entregas frescas cada mes',
-      discountPercent: 15,
-      badge: 'Más Popular · Ahorra 15%',
+      label: 'Suscripción Semanal',
+      cadenceText: '4 entregas al mes · Día del Club',
+      discountPercent: 12.5,
+      badge: 'Más Popular · 210 Bs/mes',
       perks: [
-        '15% de descuento en cada ramo y tallos adicionales',
-        'Jarrón de cerámica artesanal de cortesía en tu 1.ª entrega',
-        'Salta o pausa cualquier semana con 1 clic'
+        'Plan El Club Esencial a 210 Bs/mes (52.50 Bs/entrega)',
+        '4 entregas al mes concentradas en el Día del Club para máxima frescura',
+        'Jarrón de cerámica artesanal de cortesía en tu primera entrega',
+        'Tarjeta informativa del productor local y consejos para alargar el ramo',
+        'Empaque 100% ecológico (kraft y cordel de yute biodegradable)',
+        'Salta entregas o pausa cuando quieras con 1 clic'
       ]
     },
     {
       id: 'BIWEEKLY',
-      label: 'Cada Dos Semanas',
-      cadenceText: '2 entregas seleccionadas al mes',
-      discountPercent: 10,
-      badge: 'Ahorra 10%',
+      label: 'Suscripción Quincenal',
+      cadenceText: '2 entregas al mes · Durabilidad Óptima',
+      discountPercent: 0,
+      badge: 'Ideal para Iniciar · 120 Bs/mes',
       perks: [
-        '10% de descuento en cada ramo',
-        'Equilibrio ideal para tallos de temporada de larga duración',
-        'Cambia las variedades de flores antes de cada envío'
+        'Plan Quincenal Esencial a 120 Bs/mes (60 Bs por entrega)',
+        '2 entregas mensuales para crear el hábito floral en casa',
+        'Flores frescas locales seleccionadas por su durabilidad de 12–14 días',
+        'Tarjeta informativa del productor local y nutriente ecológico',
+        'Personaliza o cambia tus tallos antes de cada cosecha'
       ]
     },
     {
       id: 'MONTHLY',
       label: 'Ritual Mensual',
-      cadenceText: '1 caja botánica de autor cada mes',
+      cadenceText: '1 entrega botánica de autor al mes',
       discountPercent: 0,
+      badge: 'Caja de Temporada',
       perks: [
-        'Incluye guía de edición de temporada y nutriente floral',
-        'Personaliza tus tallos hasta 48 h antes de la entrega',
+        '1 caja botánica abundante cada mes con la floración estacional de altura',
+        'Compra directa a agricultores y cooperativas florícolas locales a precio justo',
+        'Empaque 100% ecológico y compostable sin plásticos de un solo uso',
         'Cancela o cambia al plan semanal cuando quieras'
       ]
     }
@@ -72,27 +79,27 @@ export class FloralCatalogService {
   readonly sizes: BouquetSizeOption[] = [
     {
       id: 'PETITE',
-      name: 'Ramo Petite',
-      tagline: 'Arreglo íntimo y ligero para escritorios o mesas de noche',
-      stemQuota: 12,
-      basePrice: 44,
-      recommendedFor: 'Mesa de noche, Estudio en casa, Rincón de lectura'
+      name: 'Rincón Petite',
+      tagline: 'Arreglo fresco y ligero de temporada para mesas de noche o escritorios',
+      stemQuota: 10,
+      basePrice: 40,
+      recommendedFor: 'Mesa de noche, Escritorio, Rincón de lectura'
     },
     {
       id: 'CLASSIC',
-      name: 'Clásico de Autor',
-      tagline: 'Centro de mesa botánico abundante con texturas en capas',
-      stemQuota: 20,
-      basePrice: 64,
-      recommendedFor: 'Comedor, Isla de cocina, Sala principal'
+      name: 'Plan El Club / Esencial',
+      tagline: 'Producto estrella: ramo abundante para el espacio principal con flores focales destacadas y combinación estacional',
+      stemQuota: 18,
+      basePrice: 60,
+      recommendedFor: 'Espacio principal del hogar, Sala, Comedor'
     },
     {
       id: 'ATELIER_LUXE',
-      name: 'Atelier Grand Luxe',
-      tagline: 'Pieza arquitectónica imponente con tallos de jardín exclusivos',
-      stemQuota: 30,
-      basePrice: 92,
-      recommendedFor: 'Recibidor principal, Mesa de eventos, Regalo especial'
+      name: 'Plan Rincón Verde / Dúo',
+      tagline: 'Selección equilibrada de flores de temporada y verde ornamental para jarrón mediano o dos rincones de la casa',
+      stemQuota: 26,
+      basePrice: 85.71,
+      recommendedFor: 'Dos rincones de la casa, Jarrón mediano o dos jarrones'
     }
   ];
 
@@ -246,35 +253,35 @@ export class FloralCatalogService {
   readonly wrappings: WrappingOption[] = [
     {
       id: 'KRAFT_LINEN',
-      name: 'Papel Kraft Botánico y Cinta de Lino Crudo',
-      description: 'Papel kraft francés compostable atado con lino belga sin blanquear y envoltura hidratante.',
+      name: 'Empaque 100% Ecológico (Kraft y Cordel Biodegradable)',
+      description: 'Papel kraft natural reciclable atado con yute y cordel biodegradable. Cero plásticos de un solo uso.',
       price: 0,
       firstDeliveryFreeOnWeekly: false,
-      badge: 'Incluido'
+      badge: 'Incluido · Sustentable'
     },
     {
       id: 'CERAMIC_VASE',
-      name: 'Jarrón Artesanal de Gres Mate',
-      description: 'Vasija de cerámica moteada color crema torneada a mano para arreglos en espiral.',
-      price: 18,
+      name: 'Jarrón Artesanal de Cerámica Local',
+      description: 'Vasija de gres mate elaborada a mano por alfareros y artesanos locales para arreglos del Club.',
+      price: 20,
       firstDeliveryFreeOnWeekly: true,
       badge: 'Gratis en Plan Semanal'
     },
     {
       id: 'FLUTED_GLASS',
-      name: 'Garrafa Boticaria de Vidrio Ámbar Estriado',
-      description: 'Vasija de vidrio reciclado acanalado que captura la cálida luz de la tarde.',
-      price: 14,
+      name: 'Florero Boticario de Vidrio Reciclado',
+      description: 'Vasija de vidrio reciclado acanalado que realza la luz y textura del follaje local.',
+      price: 15,
       firstDeliveryFreeOnWeekly: false
     }
   ];
 
   readonly curatedPresets: CuratedPreset[] = [
     {
-      id: 'preset-terracotta-solstice',
-      name: 'Solsticio Terracota',
-      seasonTag: 'Edición Cosecha de Otoño',
-      description: 'Ranúnculos mariposa, dalias Café au Lait, cosmos damasco y ramas de olivo silvestre.',
+      id: 'preset-club-esencial',
+      name: 'Plan El Club / Esencial',
+      seasonTag: 'Producto Estrella · 210 Bs/mes',
+      description: 'Ramo abundante para el espacio principal del hogar con flores focales destacadas y combinación estacional de temporada.',
       imageUrl: 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=800&q=80',
       frequency: 'WEEKLY',
       sizeId: 'CLASSIC',
@@ -283,45 +290,46 @@ export class FloralCatalogService {
       stems: [
         { flowerId: 'ranunculus-butterfly', count: 5 },
         { flowerId: 'cafe-au-lait-dahlia', count: 3 },
-        { flowerId: 'cosmos-apricot', count: 6 },
-        { flowerId: 'olive-branch', count: 6 }
+        { flowerId: 'cosmos-apricot', count: 5 },
+        { flowerId: 'olive-branch', count: 5 }
       ],
-      startingPrice: 54
+      startingPrice: 52.5
     },
     {
-      id: 'preset-alabaster-sanctuary',
-      name: 'Santuario de Alabastro',
-      seasonTag: 'Firma Minimalista',
-      description: 'Anémonas francesas blancas, lisianthus doble marfil y aromático eucalipto plateado.',
-      imageUrl: 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80',
-      frequency: 'MONTHLY',
-      sizeId: 'CLASSIC',
-      paletteId: 'WHITE_BOTANICAL',
-      wrappingId: 'KRAFT_LINEN',
-      stems: [
-        { flowerId: 'anemone-panda', count: 6 },
-        { flowerId: 'white-lisianthus', count: 8 },
-        { flowerId: 'silver-dollar-eucalyptus', count: 6 }
-      ],
-      startingPrice: 64
-    },
-    {
-      id: 'preset-morning-conservatory',
-      name: 'Invernadero Matinal Inglés',
-      seasonTag: 'Herencia Fragante',
-      description: 'Fragantes rosas de jardín Juliet, guisantes de olor rizados y suave follaje de pradera.',
+      id: 'preset-rincon-verde-duo',
+      name: 'Plan Rincón Verde / Dúo',
+      seasonTag: 'Doble Rincón · 300 Bs/mes',
+      description: 'Selección equilibrada de flores de temporada y verde ornamental para jarrón mediano o dos rincones de la casa.',
       imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
       frequency: 'WEEKLY',
       sizeId: 'ATELIER_LUXE',
       paletteId: 'PASTEL_MEADOW',
-      wrappingId: 'CERAMIC_VASE',
+      wrappingId: 'KRAFT_LINEN',
       stems: [
-        { flowerId: 'garden-rose-juliet', count: 8 },
+        { flowerId: 'garden-rose-juliet', count: 7 },
         { flowerId: 'ranunculus-butterfly', count: 6 },
-        { flowerId: 'sweet-pea-spencer', count: 8 },
-        { flowerId: 'silver-dollar-eucalyptus', count: 8 }
+        { flowerId: 'sweet-pea-spencer', count: 6 },
+        { flowerId: 'silver-dollar-eucalyptus', count: 7 }
       ],
-      startingPrice: 78
+      startingPrice: 75
+    },
+    {
+      id: 'preset-quincenal-esencial',
+      name: 'Plan Quincenal Esencial',
+      seasonTag: 'Inicio Floral · 120 Bs/mes',
+      description: 'Flores locales seleccionadas por su durabilidad natural de 12–14 días para disfrutar de flores frescas cada dos semanas.',
+      imageUrl: 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80',
+      frequency: 'BIWEEKLY',
+      sizeId: 'CLASSIC',
+      paletteId: 'WHITE_BOTANICAL',
+      wrappingId: 'KRAFT_LINEN',
+      stems: [
+        { flowerId: 'anemone-panda', count: 5 },
+        { flowerId: 'white-lisianthus', count: 5 },
+        { flowerId: 'cosmos-apricot', count: 4 },
+        { flowerId: 'silver-dollar-eucalyptus', count: 4 }
+      ],
+      startingPrice: 60
     }
   ];
 
@@ -333,13 +341,13 @@ export class FloralCatalogService {
   readonly selectedDeliveryDay = signal<DeliveryDay>('Viernes');
   readonly recipientName = signal<string>('Clara Vance');
   readonly deliveryAddress = signal<string>('Av. Jardín Botánico 742, Dpto. 4B');
-  readonly giftNote = signal<string>('Que estas flores frescas iluminen cada semana en casa.');
+  readonly giftNote = signal<string>('Que estas flores frescas de agricultores locales iluminen cada semana en casa.');
 
   readonly stemSelections = signal<StemSelection[]>([
     { flowerId: 'ranunculus-butterfly', count: 5 },
     { flowerId: 'garden-rose-juliet', count: 4 },
-    { flowerId: 'cosmos-apricot', count: 5 },
-    { flowerId: 'silver-dollar-eucalyptus', count: 6 }
+    { flowerId: 'cosmos-apricot', count: 4 },
+    { flowerId: 'silver-dollar-eucalyptus', count: 5 }
   ]);
 
   // Suscripciones activas del cliente
@@ -355,16 +363,16 @@ export class FloralCatalogService {
       stems: [
         { flowerId: 'ranunculus-butterfly', count: 5 },
         { flowerId: 'cafe-au-lait-dahlia', count: 3 },
-        { flowerId: 'cosmos-apricot', count: 6 },
-        { flowerId: 'olive-branch', count: 6 }
+        { flowerId: 'cosmos-apricot', count: 5 },
+        { flowerId: 'olive-branch', count: 5 }
       ],
       deliveryDay: 'Viernes',
-      nextDeliveryDate: 'Viernes, 23 de Oct',
+      nextDeliveryDate: 'Viernes (Día del Club)',
       recipientName: 'Clara Vance',
       deliveryAddress: 'Av. Jardín Botánico 742, Dpto. 4B',
-      giftNote: 'Centro de mesa de otoño',
-      unitPricePerDelivery: 66.3,
-      discountAppliedPercent: 15
+      giftNote: 'Ramo semanal para el espacio principal',
+      unitPricePerDelivery: 52.5,
+      discountAppliedPercent: 12.5
     }
   ]);
 

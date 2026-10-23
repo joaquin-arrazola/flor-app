@@ -33,10 +33,10 @@ export class AppComponent {
   readonly toastMessage = signal<string | null>(null);
 
   readonly deliveryDays: DeliveryDay[] = [
-    'Martes',
-    'Jueves',
     'Viernes',
-    'Sábado'
+    'Sábado',
+    'Jueves',
+    'Martes'
   ];
 
   readonly filteredFlowers = computed(() => {
